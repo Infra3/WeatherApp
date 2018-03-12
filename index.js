@@ -23,12 +23,9 @@ function callWeatherApi (city, date) {
         res.on('end', () => {
           // After all the data has been received parse the JSON for desired data
           let response = JSON.parse(body);
-          let forecast = response['data']['main'][0];
-          let location = response['data']['request'][0];
-          let conditions = response['data']['current_condition'][0];
-          let currentConditions = conditions['weatherDesc'][0]['value'];
+         
           // Create response
-          let output = `Current temp of ${city} is  ${forecast['temp']}°C`;
+          let output = `Hello harry`;
           // Resolve the promise with the output text
           resolve(output);
         });
