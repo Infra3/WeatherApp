@@ -14,7 +14,7 @@ function callWeatherApi (city, date) {
       // Create the path for the HTTP request to get the weather
       
         
-      let path = '/data/2.5/weather?q='+city+'&APIkey='+wwoApiKey+'&units=metric&date='+date;  
+      let path = '/data/2.5/weather?q=London&APIkey=044adacd647cf5d3e2d6113d473366ea&units=metric;  
 
       // Make the HTTP request to get the weather
       http.get({host: host, path: path}, (res) => {
