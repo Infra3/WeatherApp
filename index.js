@@ -4,16 +4,17 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const wwoApiKey = 'e52e6f3256fa4f1abda220042180903';
-const host = 'api.worldweatheronline.com';
+const wwoApiKey = '044adacd647cf5d3e2d6113d473366ea';
+const host = 'api.openweathermap.org';
 
 const restService = express();
 
 function callWeatherApi (city, date) {
     return new Promise((resolve, reject) => {
       // Create the path for the HTTP request to get the weather
-      let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
-        '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
+      
+        
+      let path = '/data/2.5/weather?q='+encodeURIComponent(city)+'&APIkey='+wwoApiKey+'&units=metric';  
 
       // Make the HTTP request to get the weather
       http.get({host: host, path: path}, (res) => {
@@ -22,16 +23,12 @@ function callWeatherApi (city, date) {
         res.on('end', () => {
           // After all the data has been received parse the JSON for desired data
           let response = JSON.parse(body);
-          let forecast = response['data']['weather'][0];
+          let forecast = response['data'][''][0];
           let location = response['data']['request'][0];
           let conditions = response['data']['current_condition'][0];
           let currentConditions = conditions['weatherDesc'][0]['value'];
           // Create response
-          let output = `Current conditions in the ${location['type']} 
-          ${location['query']} are ${currentConditions} with a projected high of
-          ${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
-          ${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
-          ${forecast['date']}.`;
+          let output = `Current temp of ${city} is  ${forecast['maxtempC']}°C`;
           // Resolve the promise with the output text
           resolve(output);
         });
