@@ -17,21 +17,13 @@ function callWeatherApi (city, date) {
       // Make the HTTP request to get the weather
       http.get({host: host, path: path}, (res) => {
         let body = ''; // var to store the response chunks
-        res.on('coord', (d) => { body += d; }); // store each response chunk
-        res.on('end', () => {
-          // After all the data has been received parse the JSON for desired data
-          let response = JSON.parse(body);
-          let forecast = response['coord']['lon'][0];
-          
-          // Create response
-          let output = `Current conditions in the ${forecast}`; 
+       
+          let output = `Current conditions in the ${res}`; 
          
           // Resolve the promise with the output text
           resolve(output);
         });
-        res.on('error', (error) => {
-          reject(error);
-        });
+        
       });
     });
 }
