@@ -21,7 +21,7 @@ function callWeatherApi (city, date) {
       http.get({host: host, path: path}, (res) => {
         let body = ''; // var to store the response chunks
         res.on('main', (d) => { body += d; }); // store each response chunk
-        res.on('end', () => {
+        
           // After all the data has been received parse the JSON for desired data
           let response = JSON.parse(body);
           let forecast = response['main']['temp'][0];
@@ -32,10 +32,8 @@ function callWeatherApi (city, date) {
          
           // Resolve the promise with the output text
           resolve(output);
-        });
-        res.on('error', (error) => {
-          reject(error);
-        });
+       
+       
       });
     });
 }
