@@ -1,20 +1,19 @@
-'use strict';
+ 'use strict';
 
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const wwoApiKey = '044adacd647cf5d3e2d6113d473366ea';
-const host = 'api.openweathermap.org';
+const wwoApiKey = 'e52e6f3256fa4f1abda220042180903';
+const host = 'api.worldweatheronline.com';
 
 const restService = express();
 
 function callWeatherApi (city, date) {
     return new Promise((resolve, reject) => {
       // Create the path for the HTTP request to get the weather
-      
-        
-      let path = '/data/2.5/weather?q=London&APIkey=044adacd647cf5d3e2d6113d473366ea&units=metric;  
+      let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
+        '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
 
       // Make the HTTP request to get the weather
       http.get({host: host, path: path}, (res) => {
@@ -23,9 +22,16 @@ function callWeatherApi (city, date) {
         res.on('end', () => {
           // After all the data has been received parse the JSON for desired data
           let response = JSON.parse(body);
-         
+          let forecast = response['data']['weather'][0];
+          let location = response['data']['request'][0];
+          let conditions = response['data']['current_condition'][0];
+          let currentConditions = conditions['weatherDesc'][0]['value'];
           // Create response
-          let output = `Hello harry`;
+          let output = `Current conditions in the ${location['type']} 
+          ${location['query']} are ${currentConditions} with a projected high of
+          ${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
+          ${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
+          ${forecast['date']}.`;
           // Resolve the promise with the output text
           resolve(output);
         });
@@ -67,3 +73,4 @@ restService.post('/weatherinfo', (req, res) => {
 restService.listen(process.env.PORT || 8000, () => {
     console.log('Server is running on port: ' + (process.env.PORT || 8000));
 });
+
