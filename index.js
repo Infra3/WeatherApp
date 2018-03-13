@@ -18,23 +18,16 @@ function callWeatherApi (city, date) {
      let path= '/data/2.5/weather?q=London&APIkey=044adacd647cf5d3e2d6113d473366ea&units=metric';
 
       // Make the HTTP request to get the weather
-      http.get({host: host, path: path}, (res) => {
-        let body = ''; // var to store the response chunks
-        res.on('main', (d) => { body += d; }); // store each response chunk
-        
-          // After all the data has been received parse the JSON for desired data
-          let response = JSON.parse(body);
-          let forecast = response['main']['temp'][0];
-        
+     
           // Create response
-          let output = `Current temp is  ${forecast}.`;
+          let output = `Current temp `;
           
          
           // Resolve the promise with the output text
           resolve(output);
        
        
-      });
+     
     });
 }
 
