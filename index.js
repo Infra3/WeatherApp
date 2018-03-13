@@ -43,7 +43,7 @@ function callWeatherApi (city, date) {
 }
 
 
-export.WeatherApp= (req, res) => {
+exports.WeatherApp= (req, res) => {
     // Get the city and date from the request
     let city = req.body.result.parameters['city']; // city is a required param
     // Get the date for the weather forecast (if present)
