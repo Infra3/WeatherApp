@@ -1,12 +1,13 @@
 'use strict';
 
 const http = require('http');
-
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const wwoApiKey = 'e52e6f3256fa4f1abda220042180903';
 const host = 'api.worldweatheronline.com';
 
-
+const restService = express();
 
 function callWeatherApi (city, date) {
     return new Promise((resolve, reject) => {
@@ -41,8 +42,15 @@ function callWeatherApi (city, date) {
     });
 }
 
+restService.use(
+    bodyParser.urlencoded({
+        extended: true
+    })
+);
 
-exports.WeatherApp= (req, res) => {
+restService.use(bodyParser.json());
+
+restService.post('/weatherinfo', (req, res) => {
     // Get the city and date from the request
     let city = req.body.result.parameters['city']; // city is a required param
     // Get the date for the weather forecast (if present)
@@ -59,5 +67,9 @@ exports.WeatherApp= (req, res) => {
     });
 
 
-};
+});
 
+
+restService.listen(process.env.PORT || 8000, () => {
+    console.log('Server is running on port: ' + (process.env.PORT || 8000));
+});
