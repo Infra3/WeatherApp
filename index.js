@@ -1,8 +1,7 @@
 'use strict';
 
 const http = require('http');
-const express = require('express');
-const bodyParser = require('body-parser');
+
 
 const wwoApiKey = 'e52e6f3256fa4f1abda220042180903';
 const host = 'api.worldweatheronline.com';
