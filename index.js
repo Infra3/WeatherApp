@@ -1,10 +1,10 @@
- 'use strict';
+'use strict';
 
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const APIkey = '044adacd647cf5d3e2d6113d473366ea';
+
 const host = 'api.openweathermap.org';
 
 const restService = express();
@@ -12,22 +12,27 @@ const restService = express();
 function callWeatherApi (city, date) {
     return new Promise((resolve, reject) => {
       // Create the path for the HTTP request to get the weather
-      //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
-        //'&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
-     
-     let path= '/data/2.5/weather?q=London&APIkey=044adacd647cf5d3e2d6113d473366ea&units=metric';
+      let path = '/data/2.5/weather?format=json&q=London&APIkey=044adacd647cf5d3e2d6113d473366ea&units=metric';
 
       // Make the HTTP request to get the weather
-     
-          // Create response
-          let output = `Current temp `;
+      http.get({host: host, path: path}, (res) => {
+        let body = ''; // var to store the response chunks
+        res.on('weather', (d) => { body += d; }); // store each response chunk
+        res.on('end', () => {
+          // After all the data has been received parse the JSON for desired data
+          let response = JSON.parse(body);
+          let forecast = response['weather'][0];
           
+          // Create response
+          let output = `Current conditions in the ${forecast}; 
          
           // Resolve the promise with the output text
           resolve(output);
-       
-       
-     
+        });
+        res.on('error', (error) => {
+          reject(error);
+        });
+      });
     });
 }
 
@@ -62,4 +67,3 @@ restService.post('/weatherinfo', (req, res) => {
 restService.listen(process.env.PORT || 8000, () => {
     console.log('Server is running on port: ' + (process.env.PORT || 8000));
 });
-
