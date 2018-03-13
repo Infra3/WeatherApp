@@ -24,7 +24,7 @@ function callWeatherApi (city, date) {
           let forecast = response['weather'][0];
           
           // Create response
-          let output = `Current conditions in the ${forecast}; 
+          let output = `Current conditions in the ${forecast}`; 
          
           // Resolve the promise with the output text
           resolve(output);
