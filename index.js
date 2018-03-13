@@ -60,5 +60,5 @@ exports.WeatherApp= (req, res) => {
     });
 
 
-});
+};
 
