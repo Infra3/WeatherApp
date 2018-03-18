@@ -1,5 +1,6 @@
 'use strict';
 
+const translate = require('google-translate-api');
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
