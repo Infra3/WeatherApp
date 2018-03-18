@@ -24,14 +24,10 @@ restService.post('/weatherinfo', (req, res) => {
     // Call the weather API
 
         
-         translate('I speak Dutch!', {from: 'en', to: 'nl'}).then(res => {
+         translate('I speak Dutch!', {from: 'en', to: 'nl'}).then(resp => {
         
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ 'speech':res.text, 'displayText':res.text }));
-    }).catch((error) => {
-        // If there is an error let the user know
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
+        res.send(JSON.stringify({ 'speech':resp.text, 'displayText':resp.text }));
     });
 
 
