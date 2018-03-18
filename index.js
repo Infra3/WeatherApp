@@ -1,12 +1,10 @@
 'use strict';
 
 const translate = require('google-translate-api');
-const http = require('http');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const wwoApiKey = 'e52e6f3256fa4f1abda220042180903';
-const host = 'api.worldweatheronline.com';
 
 const restService = express();
 
