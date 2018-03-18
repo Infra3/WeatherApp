@@ -16,11 +16,11 @@ function callWeatherApi (city, date) {
       translate('I speak Dutch!', {from: 'en', to: 'nl'}).then(res => {
         
           output =`${res.text}`;
-        
+         resolve(output);
         
           
         });
-       resolve(output);
+      
     });
    
 }
