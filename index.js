@@ -15,7 +15,7 @@ function callWeatherApi (city, date) {
       // Create the path for the HTTP request to get the weather
       translate('I speak Dutch!', {from: 'en', to: 'nl'}).then(res => {
         
-          output = ${res.text};
+          output =`${res.text}`;
         
         
           
