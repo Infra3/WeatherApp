@@ -18,9 +18,9 @@ function callWeatherApi (city, date) {
           output = res.text;
         
         
-          resolve(output);
+          
         });
-       
+       resolve(output);
     });
    
 }
