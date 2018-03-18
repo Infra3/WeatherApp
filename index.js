@@ -24,7 +24,7 @@ restService.post('/weatherinfo', (req, res) => {
     // Call the weather API
 
         
-         translate('I speak Dutch!', {from: 'en', to: 'nl'}).then(resp => {
+         translate(city, {from: 'en', to: 'nl'}).then(resp => {
         
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ 'speech':resp.text, 'displayText':resp.text }));
