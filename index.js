@@ -8,21 +8,6 @@ const bodyParser = require('body-parser');
 
 const restService = express();
 
-function callWeatherApi (city, date) {
-    return new Promise((resolve, reject) => {
-      // Create the path for the HTTP request to get the weather
-      translate('I speak Dutch!', {from: 'en', to: 'nl'}).then(res => {
-        
-          output =`samip`;
-         resolve(output);
-        
-          
-        });
-      
-    });
-   
-}
-
 restService.use(
     bodyParser.urlencoded({
         extended: true
@@ -37,10 +22,12 @@ restService.post('/weatherinfo', (req, res) => {
     // Get the date for the weather forecast (if present)
     let date = req.body.result.parameters['date'];
     // Call the weather API
-    callWeatherApi(city, date).then((output) => {
-        // Return the results of the weather API to Dialogflow
+
+        
+         translate('I speak Dutch!', {from: 'en', to: 'nl'}).then(res => {
+        
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
+        res.send(JSON.stringify({ 'speech':res.text, 'displayText':res.text }));
     }).catch((error) => {
         // If there is an error let the user know
         res.setHeader('Content-Type', 'application/json');
