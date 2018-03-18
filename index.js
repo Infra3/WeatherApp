@@ -13,7 +13,7 @@ const restService = express();
 function callWeatherApi (city, date) {
     return new Promise((resolve, reject) => {
       // Create the path for the HTTP request to get the weather
-      translate('I spea Dutch!', {from: 'en', to: 'nl'}).then(res => {
+      translate('I speak Dutch!', {from: 'en', to: 'nl'}).then(res => {
         
           output = res.text;
         
